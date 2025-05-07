@@ -55,14 +55,37 @@ function deleteCard(cardElement) {
     cardElement.remove();
 }
 
+// Функция закрытия попапа по клику на оверлей
+function closeByOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.currentTarget);
+  }
+}
+
+// Функция закрытия попапа по нажатию Esc
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_is-opened');
+    closeModal(openedPopup);
+  }
+}
+
 // Функция открытия попапа
 function openModal(popup) {
-    popup.classList.add('popup_is-opened');
+  popup.classList.add('popup_is-opened');
+  // Добавляем слушатель нажатия клавиши Esc
+  document.addEventListener('keydown', closeByEsc);
+  // Добавляем слушатель клика по оверлею
+  popup.addEventListener('click', closeByOverlay);
 }
 
 // Функция закрытия попапа
 function closeModal(popup) {
-    popup.classList.remove('popup_is-opened');
+  popup.classList.remove('popup_is-opened');
+  // Удаляем слушатель нажатия клавиши Esc
+  document.removeEventListener('keydown', closeByEsc);
+  // Удаляем слушатель клика по оверлею
+  popup.removeEventListener('click', closeByOverlay);
 }
 
 function handleProfileFormSubmit(evt) {
