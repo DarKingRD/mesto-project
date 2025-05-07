@@ -139,3 +139,72 @@ profileFormElement.querySelector('.popup__close').addEventListener('click', () =
 imagePopupClose.addEventListener('click', () => {
     closeModal(imagePopup);
 });
+
+// Функции валидации
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__error_visible');
+}
+
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_type_error');
+  errorElement.classList.remove('popup__error_visible');
+  errorElement.textContent = '';
+}
+
+function checkInputValidity(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    // Если есть невалидные поля, делаем кнопку неактивной
+    buttonElement.disabled = true;
+    buttonElement.classList.add('popup__button_disabled');
+  } else {
+    // Если все поля валидны, делаем кнопку активной
+    buttonElement.disabled = false;
+    buttonElement.classList.remove('popup__button_disabled');
+  }
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function setEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const buttonElement = formElement.querySelector('.popup__button');
+
+  // Устанавливаем начальное состояние кнопки
+  toggleButtonState(inputList, buttonElement);
+
+  // Добавляем слушатели на все поля ввода
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}
+
+// Инициализация валидации для всех форм
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+}
+
+// Вызываем функцию валидации при загрузке страницы
+enableValidation();
+
