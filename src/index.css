@@ -1,0 +1,7 @@
+@import './blocks/page/page.css';
+@import './blocks/header/header.css';
+@import './blocks/profile/profile.css';
+@import './blocks/places/places.css';
+@import './blocks/card/card.css';
+@import './blocks/popup/popup.css';
+@import './blocks/footer/footer.css'; 
