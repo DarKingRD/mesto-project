@@ -21,4 +21,4 @@ export function closeModal(popup) {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeByEsc);
   popup.removeEventListener('click', closeByOverlay);
-} 
+}

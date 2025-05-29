@@ -1,6 +1,5 @@
 @import url('./__content/popup__content.css');
 @import url('./_is-opened/popup_is-opened.css');
-@import url('./_is-animated/popup_is-animated.css');
 @import url('./__content/_content/popup__content_content_image.css');
 @import url('./__close/popup__close.css');
 @import url('./__title/popup__title.css');
@@ -13,14 +12,25 @@
 
 .popup {
   font-family: 'Inter', Arial, sans-serif;
-  display: none;
+  display: flex; /* всегда flex, но скрыт */
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   z-index: 10;
+  
+  /* Начальное состояние (скрыто) */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none; /* чтобы клики не проходили */
+  user-select: none; /* чтобы нельзя было выделить текст */
+  
+  /* Анимация исчезновения (задержка visibility) */
+  transition: 
+    visibility 0s 0.3s, /* visibility меняется после opacity */
+    opacity 0.3s ease-in-out;
 }
