@@ -1,3 +1,3 @@
 # Проектная работа Mesto
 
-студент, когорта, стэк
+Ссылка на github pages: https://darkingrd.github.io/mesto-project/
