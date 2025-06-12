@@ -8,7 +8,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     clean: true,
-    assetModuleFilename: 'images/[name][ext]'
+    assetModuleFilename: 'images/[name][ext]',
+    publicPath: '/mesto-project/'
   },
   module: {
     rules: [
@@ -59,6 +60,11 @@ module.exports = {
     },
     compress: true,
     port: 9000,
-    open: true
+    open: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+    }
   }
 }; 
